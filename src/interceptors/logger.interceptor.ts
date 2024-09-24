@@ -13,8 +13,8 @@ export class LoggerInterceptor implements NestInterceptor {
     const body = req.body;
     const startTime = Date.now();
 
-    logger.info(`[Request] ${method} ${url}${body && Object.keys(body).length > 0 
-      ? ` - Body: ${JSON.stringify(body)}` : ''}`);
+    logger.info(`[Request] ${method} ${url}${method !== 'GET' && !body.password ? 
+      ` - Body: ${JSON.stringify(body)}` : ''}`);
 
     return next
       .handle()
