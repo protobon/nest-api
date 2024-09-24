@@ -17,6 +17,10 @@ export class UserService {
     return this.userModel.findById(id).exec();
   }
 
+  async findByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({ email }).select('+password');
+  }
+
   async create(user: UserDto): Promise<User> {
     const { name, email, password } = user;
 
