@@ -8,9 +8,8 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { Env } from 'src/common/constants';
 
-export const IS_PUBLIC_KEY = 'isPublic';
+const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
 @Injectable()
@@ -33,12 +32,7 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException();
         }
         try {
-            const payload = await this.jwtService.verifyAsync(
-                token,
-                {
-                secret: Env.JWT_SECRET
-                }
-            );
+            const payload = await this.jwtService.verifyAsync(token);
             request['user'] = payload;
         } catch {
             throw new UnauthorizedException();
