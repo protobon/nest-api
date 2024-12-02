@@ -53,8 +53,9 @@ export class AuthService {
         access_token: new_access_token,
         refresh_token: new_refresh_token,
       }
-    } catch {
-      throw new UnauthorizedException("Refresh token invalid");
+    } catch (error) {
+      console.error(error);
+      throw new UnauthorizedException("Refresh token error, try logging in");
     }
   }
 
