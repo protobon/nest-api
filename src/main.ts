@@ -12,6 +12,7 @@ async function bootstrap() {
   }))
   app.useGlobalInterceptors(new LoggerInterceptor());
   app.setGlobalPrefix('api');
+  app.enableCors();
   await app.listen(Env.PORT, () => {
     console.log(`Server running on http://${Env.HOST}:${Env.PORT}`);
   });
