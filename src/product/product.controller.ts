@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/
 import { ProductService } from './product.service';
 import { Product } from './product.schema';
 import { FindAllProductDto, ProductDto, UpdateProductDto } from 'src/dto/product.dto';
+import { ValidateObjectIdPipe } from 'src/common/validation';
 
 @Controller('products')
 export class ProductController {
@@ -13,7 +14,7 @@ export class ProductController {
   }
 
   @Get(':id')
-  async getProductById(@Param('id') id: string): Promise<Product> {
+  async getProductById(@Param('id', ValidateObjectIdPipe) id: string): Promise<Product> {
     return this.productService.findById(id);
   }
 
@@ -23,12 +24,12 @@ export class ProductController {
   }
 
   @Put(':id')
-  async updateProduct(@Param('id') id: string, @Body() product: UpdateProductDto): Promise<Product> {
+  async updateProduct(@Param('id', ValidateObjectIdPipe) id: string, @Body() product: UpdateProductDto): Promise<Product> {
     return this.productService.update(id, product);
   }
 
   @Delete(':id')
-  async deleteProduct(@Param('id') id: string): Promise<void> {
+  async deleteProduct(@Param('id', ValidateObjectIdPipe) id: string): Promise<void> {
     return this.productService.delete(id);
   }
 }

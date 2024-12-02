@@ -14,6 +14,11 @@ export class ProductDto {
   
     @IsString()
     price: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @IsOptional()
+    media: string[];
 }
 
 export class UpdateProductDto extends PartialType(ProductDto) {}
